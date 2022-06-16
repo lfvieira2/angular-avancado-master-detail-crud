@@ -14,10 +14,11 @@
   </div>
   <div class="col-md-3">
     <a routerLink="/entries" class="btn btn-light float-right">
-      Voltar
+      << Voltar
     </a>
   </div>
 </div>
+
 
 <form [formGroup]="entryForm" (submit)="submitForm()">
 
@@ -28,35 +29,33 @@
 
     <div class="card-body">
       <div class="form-row">
-        <!--type-->
+        <!-- type -->
         <div class="form-group col-md-2">
           <label for="type">Tipo</label>
 
           <select name="type" id="type" formControlName="type" class="form-control">
-            <option *ngFor="let option of typeOptions" [value]="option.value">{{option.text}}</option>
+            <option *ngFor="let option of typeOptions" [value]="option.value">{{ option.text }}</option>
           </select>
 
           <div class="text-danger" *ngIf="entryForm.get('type').invalid && entryForm.get('type').touched">
-            <div *ngIf="entryForm.get('type').errors.required">Dado obrigatorio</div>
+            <div *ngIf="entryForm.get('type').errors.required">dado obrigatório</div>
           </div>
         </div>
-        
+
         <!-- name -->
         <div class="form-group col-md-5">
           <label for="name">Lançamento</label>
-
           <input type="text" class="form-control" id="name" formControlName="name">
 
           <div class="text-danger" *ngIf="entryForm.get('name').invalid && entryForm.get('name').touched">
-            <div *ngIf="entryForm.get('name').errors.required">Dado obrigatorio</div>
-            <div *ngIf="entryForm.get('name').errors.minlength">Deve ter no minimo 2 caracteres</div>
+            <div *ngIf="entryForm.get('name').errors.required">dado obrigatório</div>
+            <div *ngIf="entryForm.get('name').errors.minlength">deve ter no mínimo 2 caracteres</div>
           </div>
         </div>
-        
+
         <!-- amount -->
         <div class="form-group col-md-3">
           <label for="amount">Valor</label>
-
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">R$</div>
@@ -65,15 +64,13 @@
           </div>
 
           <div class="text-danger" *ngIf="entryForm.get('amount').invalid && entryForm.get('amount').touched">
-            <div *ngIf="entryForm.get('amount').errors.required">Dado obrigatorio</div>
-            <div *ngIf="entryForm.get('amount').errors.minlength">Deve ter no minimo 2 caracteres</div>
+            <div *ngIf="entryForm.get('amount').errors.required">dado obrigatório</div>
           </div>
         </div>
-        
+
         <!-- date -->
         <div class="form-group col-md-2">
           <label for="date">Data</label>
-
           <p-calendar
             id="date"
             formControlName="date"
@@ -85,51 +82,52 @@
           </p-calendar>
 
           <div class="text-danger" *ngIf="entryForm.get('date').invalid && entryForm.get('date').touched">
-            <div *ngIf="entryForm.get('date').errors.required">Dado obrigatorio</div>
+            <div *ngIf="entryForm.get('date').errors.required">dado obrigatório</div>
           </div>
         </div>
-
       </div>
 
+
       <div class="form-row">
-        
         <!-- paid -->
         <div class="form-group col-md-2">
-          <label for="paid">Valor</label>
-
+          <label for="paid">Pago</label>
           <div class="btn-group">
-            <label (click)="entryForm.get('paid').setValue(true)" [class.active]="entryForm.get('paid').value == true" class="btn btn-outline-info">Pago</label>
-            <label (click)="entryForm.get('paid').setValue(false)" [class.active]="entryForm.get('paid').value == false" class="btn btn-outline-info">Pendente</label>
+            <label (click)="entryForm.get('paid').setValue(true)" [class.active]="entryForm.get('paid').value == true" class="btn btn-outline-info">
+              Pago
+            </label>
+            <label (click)="entryForm.get('paid').setValue(false)" [class.active]="entryForm.get('paid').value == false" class="btn btn-outline-info">
+              Pendente
+            </label>
           </div>
 
           <div class="text-danger" *ngIf="entryForm.get('paid').invalid && entryForm.get('paid').touched">
-            <div *ngIf="entryForm.get('paid').errors.required">Dado obrigatorio</div>
-            <div *ngIf="entryForm.get('paid').errors.minlength">Deve ter no minimo 2 caracteres</div>
+            <div *ngIf="entryForm.get('paid').errors.required">dado obrigatório</div>
           </div>
         </div>
 
-        <!--categoryId-->
-        <div class="form-group col-md-2">
+        <!-- categoryId -->
+        <div class="form-group col-md-3">
           <label for="categoryId">Categoria</label>
 
           <select name="categoryId" id="categoryId" formControlName="categoryId" class="form-control">
-            <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+            <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
           </select>
 
           <div class="text-danger" *ngIf="entryForm.get('categoryId').invalid && entryForm.get('categoryId').touched">
-            <div *ngIf="entryForm.get('categoryId').errors.required">Dado obrigatorio</div>
+            <div *ngIf="entryForm.get('categoryId').errors.required">dado obrigatório</div>
           </div>
         </div>
 
         <!-- description -->
-        <div class="form-group col-md-8">
+        <div class="form-group col-md-7">
           <label for="description">Descrição</label>
           <input type="text" class="form-control" id="description" formControlName="description">
         </div>
       </div>
-
     </div>
   </div>
+
 
   <div class="alert alert-danger mt-4" *ngIf="serverErrorMessages">
     <strong>Erro no servidor:</strong>
@@ -138,9 +136,8 @@
     </ul>
   </div>
 
-  <button type="submit" class="btn btn-primary btl-lg float-right mt-3" [disabled]="submittingForm || entryForm.invalid">
+  <button [disabled]="submittingForm || entryForm.invalid" type="submit" class="btn btn-primary btn-lg float-right mt-3">
     Salvar
   </button>
 
 </form>
-<pre>{{entryForm.value | json}}</pre>
