@@ -2,7 +2,7 @@ import { AfterContentChecked, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BaseResourceModel } from '../../moldes/base-resource.model'; 
+import { BaseResourceModel } from '../../moldes/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
 
 import { switchMap } from 'rxjs/operators';
@@ -15,7 +15,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   pageTitle: string;
   serverErrorMessages: string[] = null;
   submittingForm: boolean = false;
-    
+
   protected route: ActivatedRoute;
   protected router: Router;
   protected formBuilder: FormBuilder;
@@ -25,7 +25,7 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     public resource: T,
     protected resourceService: BaseResourceService<T>,
     protected jsonDataToResourceFn: (jsonData) => T,
-  ){
+  ) {
     this.route = this.Injector.get(ActivatedRoute);
     this.router = this.Injector.get(Router);
     this.formBuilder = this.Injector.get(FormBuilder);
@@ -41,12 +41,12 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     this.setPageTitle();
   }
 
-  submitForm(){
+  submitForm() {
     this.submittingForm = true;
 
-    if(this.currenctAction == 'new')
+    if (this.currenctAction == 'new')
       this.createResource();
-    else 
+    else
       this.updateResource();
   }
 
@@ -89,45 +89,45 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
     return 'Edição'
   }
 
-  protected createResource(){
+  protected createResource() {
     const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
 
     this.resourceService.create(resource)
-    .subscribe(
-      resource => this.actionsForSuccess(resource),
-      error => this.actionsForError(error)
-    )
+      .subscribe(
+        resource => this.actionsForSuccess(resource),
+        error => this.actionsForError(error)
+      )
   }
 
-  protected updateResource(){
+  protected updateResource() {
     const resource: T = this.jsonDataToResourceFn(this.resourceForm.value);
 
     this.resourceService.update(resource)
-    .subscribe(
-      resource => this.actionsForSuccess(resource),
-      error => this.actionsForError(error)
-    )
+      .subscribe(
+        resource => this.actionsForSuccess(resource),
+        error => this.actionsForError(error)
+      )
   }
 
-  protected actionsForSuccess(resource: T){
+  protected actionsForSuccess(resource: T) {
     toastr.success('Solicitação processada com sucesso!');
     const baseComponentPath: string = this.route.snapshot.parent.url[0].path;
 
     // redirect/reload component page
-    this.router.navigateByUrl(baseComponentPath, {skipLocationChange: true}).then(
+    this.router.navigateByUrl(baseComponentPath, { skipLocationChange: true }).then(
       () => this.router.navigate([baseComponentPath, resource.id, 'edit'])
     )
   }
 
-  protected actionsForError(error){
+  protected actionsForError(error) {
     toastr.error('Ocorreu um erro ao processar sua solicitação!');
 
     this.submittingForm = false;
 
-    if(error.status=422)
+    if (error.status = 422)
       this.serverErrorMessages = JSON.parse(error._body).errors;
-    else 
-      this.serverErrorMessages = 
+    else
+      this.serverErrorMessages =
         ['falha na comunicação com o servidor. Por favor tente novamente mais tarde'];
   }
 
