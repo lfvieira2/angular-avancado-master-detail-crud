@@ -51,7 +51,6 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   // protected methods
-
   protected setCurrentAction() {
     if (this.route.snapshot.url[0].path == 'new')
       this.currenctAction = 'new';
@@ -83,11 +82,11 @@ export abstract class BaseResourceFormComponent<T extends BaseResourceModel> imp
   }
 
   protected creationPageTitle(): string {
-    return "Novo"
+    return 'Novo'
   }
 
   protected editionPageTitle(): string {
-    return "Edição"
+    return 'Edição'
   }
 
   protected createResource(){
