@@ -1,4 +1,4 @@
-import { BaseResourceModel } from "src/app/shared/moldes/base-resource.model";
+import { BaseResourceModel } from "src/app/shared/models/base-resource.model";
 export class Category extends BaseResourceModel {
     constructor(
         public id?: number,

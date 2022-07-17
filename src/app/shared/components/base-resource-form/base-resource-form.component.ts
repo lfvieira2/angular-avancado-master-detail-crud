@@ -2,7 +2,7 @@ import { AfterContentChecked, OnInit, Injector } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { BaseResourceModel } from '../../moldes/base-resource.model';
+import { BaseResourceModel } from '../../models/base-resource.model';
 import { BaseResourceService } from '../../services/base-resource.service';
 
 import { switchMap } from 'rxjs/operators';
